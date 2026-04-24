@@ -1,0 +1,43 @@
+{
+  "name": "packaging-design-task-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:studio": "prisma studio"
+  },
+  "dependencies": {
+    "next": "15.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next-auth": "^5.0.0-beta.25",
+    "@auth/prisma-adapter": "^2.7.4",
+    "@prisma/client": "^6.6.0",
+    "bcryptjs": "^2.4.3",
+    "lucide-react": "^0.511.0",
+    "swr": "^2.3.3",
+    "date-fns": "^4.1.0",
+    "react-hot-toast": "^2.5.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "prisma": "^6.6.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.1",
+    "@tailwindcss/postcss": "^4.1.4",
+    "tailwindcss": "^4.1.4"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
+}

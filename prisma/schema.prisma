@@ -1,0 +1,105 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum InquiryStatus {
+  PENDING
+  IN_PROCESS
+  COMPLETE
+  PRODUCTION
+}
+
+enum Priority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+model TeamGroup {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  color     String   @default("#F5C518")
+  sortOrder Int      @default(0)
+  users     User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id          String      @id @default(cuid())
+  name        String
+  email       String      @unique
+  password    String
+  role        Role        @default(USER)
+  isActive    Boolean     @default(true)
+  teamGroup   TeamGroup?  @relation(fields: [teamGroupId], references: [id])
+  teamGroupId String?
+  inquiries   Inquiry[]   @relation("DesignerInquiries")
+  assignedBy  Inquiry[]   @relation("AssignedByInquiries")
+  notes       Note[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Inquiry {
+  id            String         @id @default(cuid())
+  leadNumber    String         @unique
+  inquiryDate   DateTime       @default(now())
+  company       String
+  agent         String
+  client        String
+  task          String
+  priority      Priority       @default(NORMAL)
+  status        InquiryStatus  @default(PENDING)
+  srcPath       String?
+  modifications Int            @default(0)
+  sortOrder     Int            @default(0)
+
+  // Job details
+  product         String?
+  finishedSize    String?
+  quantity        String?
+  material        String?
+  printing        String?
+  lamination      String?
+  addOns          String?
+  turnaroundTime  String?
+  jobRef          String?
+
+  designer        User?   @relation("DesignerInquiries", fields: [designerId], references: [id])
+  designerId      String?
+  assignedBy      User?   @relation("AssignedByInquiries", fields: [assignedById], references: [id])
+  assignedById    String?
+
+  notes           Note[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@index([designerId])
+  @@index([sortOrder])
+}
+
+model Note {
+  id          String   @id @default(cuid())
+  content     String
+  inquiry     Inquiry  @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  inquiryId   String
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String
+  createdAt   DateTime @default(now())
+}
