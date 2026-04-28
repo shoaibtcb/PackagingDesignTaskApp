@@ -1,8 +1,8 @@
 // lib/auth.ts
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { prisma } from '@/lib/db'
-import bcrypt from 'bcryptjs'
+import { getPrisma } from '@/lib/db'
+import { compare } from 'bcrypt-ts'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: 'jwt' },
@@ -39,13 +39,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null
 
+        const prisma = getPrisma()
         const user = await prisma.user.findUnique({
           where: { email: credentials.email as string },
         })
 
         if (!user || !user.isActive) return null
 
-        const isValid = await bcrypt.compare(
+        const isValid = await compare(
           credentials.password as string,
           user.password
         )

@@ -80,7 +80,7 @@ export default function TaskTable({ inquiries, total, page, onPageChange, onRowC
                   No inquiries found
                 </td>
               </tr>
-            )}
+            ) : null}
             {inquiries.map((inq, i) => (
               <tr
                 key={inq.id}

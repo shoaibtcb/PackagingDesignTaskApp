@@ -1,9 +1,10 @@
 // app/api/inquiries/counts/route.ts
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
+import { getPrisma } from '@/lib/db'
 
 export async function GET() {
+  const prisma = getPrisma();
   const session = await auth()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
