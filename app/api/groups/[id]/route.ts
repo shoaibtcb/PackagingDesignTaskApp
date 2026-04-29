@@ -12,7 +12,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   }
 
   const { id } = await params
-  const body = await req.json()
+  const body: any = await req.json()
 
   const group = await prisma.teamGroup.update({
     where: { id },

@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
   const session = await auth()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const body = await req.json()
+  const body: any = await req.json()
 
   const inquiry = await prisma.inquiry.create({
     data: {

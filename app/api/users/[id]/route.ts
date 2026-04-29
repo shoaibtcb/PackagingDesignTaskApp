@@ -3,7 +3,7 @@ export const runtime = 'edge';
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { getPrisma } from '@/lib/db'
-import bcrypt from 'bcryptjs'
+import { hash } from 'bcrypt-ts'
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const prisma = getPrisma();
@@ -13,7 +13,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   }
 
   const { id } = await params
-  const body = await req.json()
+  const body: any = await req.json()
 
   const updateData: any = {}
   if (body.name) updateData.name = body.name
@@ -21,7 +21,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   if (body.role) updateData.role = body.role
   if (body.teamGroupId !== undefined) updateData.teamGroupId = body.teamGroupId || null
   if (typeof body.isActive === 'boolean') updateData.isActive = body.isActive
-  if (body.password) updateData.password = await bcrypt.hash(body.password, 12)
+  if (body.password) updateData.password = await hash(body.password, 12)
 
   const user = await prisma.user.update({
     where: { id },

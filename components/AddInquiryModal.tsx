@@ -25,7 +25,7 @@ export default function AddInquiryModal({ open, onClose, onAdded }: Props) {
 
   useEffect(() => {
     if (open && session?.user?.role === 'ADMIN') {
-      fetch('/api/users').then(r => r.json()).then(setUsers)
+      fetch('/api/users').then(r => r.json()).then(d => setUsers(d as any))
     }
   }, [open, session])
 

@@ -21,7 +21,7 @@ export default function Sidebar({ onFilterDesigner, activeDesigner }: Props) {
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
-    fetch('/api/groups').then(r => r.json()).then(setGroups)
+    fetch('/api/groups').then(r => r.json()).then(d => setGroups(d as any))
   }, [])
 
   function toggleGroup(id: string) {

@@ -3,7 +3,7 @@ export const runtime = 'edge';
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { getPrisma } from '@/lib/db'
-import bcrypt from 'bcryptjs'
+import { hash } from 'bcrypt-ts'
 
 export async function GET() {
   const prisma = getPrisma();
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
-  const body = await req.json()
+  const body: any = await req.json()
   const { name, email, password, role, teamGroupId } = body
 
   if (!name || !email || !password) {
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   const existing = await prisma.user.findUnique({ where: { email } })
   if (existing) return NextResponse.json({ error: 'Email already exists' }, { status: 409 })
 
-  const hashed = await bcrypt.hash(password, 12)
+  const hashed = await hash(password, 12)
   const user = await prisma.user.create({
     data: {
       name,

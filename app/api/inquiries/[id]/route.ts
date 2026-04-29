@@ -39,7 +39,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { id } = await params
-  const body = await req.json()
+  const body: any = await req.json()
 
   const inquiry = await prisma.inquiry.findUnique({ where: { id } })
   if (!inquiry) return NextResponse.json({ error: 'Not found' }, { status: 404 })

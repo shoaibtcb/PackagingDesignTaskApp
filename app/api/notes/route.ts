@@ -9,9 +9,9 @@ export async function POST(req: NextRequest) {
   const session = await auth()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const { inquiryId, content } = await req.json()
+  const { inquiryId, content: reqContent }: any = await req.json()
 
-  if (!inquiryId || !content?.trim()) {
+  if (!inquiryId || !reqContent?.trim()) {
     return NextResponse.json({ error: 'inquiryId and content required' }, { status: 400 })
   }
 
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
   const note = await prisma.note.create({
     data: {
-      content,
+      content: reqContent,
       inquiryId,
       authorId: session.user.id,
     },

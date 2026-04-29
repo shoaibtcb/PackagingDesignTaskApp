@@ -46,8 +46,8 @@ export default function DashboardPage() {
     keepPreviousData: true,
   })
 
-  const inquiries = data?.inquiries || []
-  const total = data?.total || 0
+  const inquiries = (data as any)?.inquiries || []
+  const total = (data as any)?.total || 0
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault()

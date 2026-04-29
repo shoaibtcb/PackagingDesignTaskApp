@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
-  const { name, color } = await req.json()
+  const { name, color }: any = await req.json()
   if (!name) return NextResponse.json({ error: 'name required' }, { status: 400 })
 
   const maxOrder = await prisma.teamGroup.aggregate({ _max: { sortOrder: true } })
