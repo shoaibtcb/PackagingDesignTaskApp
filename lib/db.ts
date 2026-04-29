@@ -2,6 +2,8 @@
 import { PrismaClient } from '@prisma/client'
 import { PrismaD1 } from '@prisma/adapter-d1'
 
+import { getRequestContext } from '@cloudflare/next-on-pages'
+
 let cachedPrisma: PrismaClient | null = null;
 
 export function getPrisma() {
@@ -10,19 +12,14 @@ export function getPrisma() {
     return cachedPrisma
   }
 
-  try {
-    const { getRequestContext } = require('@cloudflare/next-on-pages')
-    const ctx = getRequestContext()
-    if (ctx?.env?.DB) {
-      const adapter = new PrismaD1(ctx.env.DB)
-      return new PrismaClient({ adapter })
-    }
-  } catch (e) {
-    // Fallback if not running inside Cloudflare runtime
+  // Production (Cloudflare Edge)
+  const ctx = getRequestContext()
+  if (ctx?.env?.DB) {
+    const adapter = new PrismaD1(ctx.env.DB)
+    return new PrismaClient({ adapter })
   }
 
-  if (!cachedPrisma) cachedPrisma = new PrismaClient()
-  return cachedPrisma
+  throw new Error('D1 Database binding not found. Please bind your D1 database to the variable "DB".')
 }
 
 export default getPrisma()
