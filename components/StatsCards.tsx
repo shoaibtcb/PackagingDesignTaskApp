@@ -21,10 +21,10 @@ export default function StatsCards({ onStatusFilter, activeStatus }: Props) {
   const { data, isLoading } = useSWR('/api/inquiries/counts', fetcher, { refreshInterval: 10000 })
 
   const cards = [
-    { label: 'Pending Inquiries', key: 'pending', status: 'PENDING', count: data?.pending ?? 0 },
-    { label: 'In-Process Inquiries', key: 'inProcess', status: 'IN_PROCESS', count: data?.inProcess ?? 0 },
-    { label: 'Complete Inquiries', key: 'complete', status: 'COMPLETE', count: data?.complete ?? 0 },
-    { label: 'Production Files', key: 'production', status: 'PRODUCTION', count: data?.production ?? 0 },
+    { label: 'Pending Inquiries', key: 'pending', status: 'PENDING', count: (data as any)?.pending ?? 0 },
+    { label: 'In-Process Inquiries', key: 'inProcess', status: 'IN_PROCESS', count: (data as any)?.inProcess ?? 0 },
+    { label: 'Complete Inquiries', key: 'complete', status: 'COMPLETE', count: (data as any)?.complete ?? 0 },
+    { label: 'Production Files', key: 'production', status: 'PRODUCTION', count: (data as any)?.production ?? 0 },
   ]
 
   return (
