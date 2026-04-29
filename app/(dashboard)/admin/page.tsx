@@ -90,7 +90,7 @@ export default function AdminPage() {
     if (!confirm('Delete this user?')) return
     const res = await fetch(`/api/users/${id}`, { method: 'DELETE' })
     if (res.ok) { toast.success('Deleted'); fetchData() }
-    else { const e = await res.json(); toast.error(e.error || 'Failed') }
+    else { const e: any = await res.json(); toast.error(e.error || 'Failed') }
   }
 
   // ----- Group CRUD -----

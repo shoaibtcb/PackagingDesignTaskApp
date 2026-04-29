@@ -41,7 +41,7 @@ export default function InquiryModal({ inquiryId, onClose, onUpdate }: Props) {
     setLoading(true)
     try {
       const res = await fetch(`/api/inquiries/${inquiryId}`)
-      if (res.ok) { const d = await res.json(); setInquiry(d); setForm(d) }
+      if (res.ok) { const d: any = await res.json(); setInquiry(d); setForm(d) }
     } finally { setLoading(false) }
   }, [inquiryId])
 
@@ -62,7 +62,7 @@ export default function InquiryModal({ inquiryId, onClose, onUpdate }: Props) {
         method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form),
       })
       if (res.ok) {
-        const updated = await res.json(); setInquiry(updated); setForm(updated)
+        const updated: any = await res.json(); setInquiry(updated); setForm(updated)
         toast.success('Saved!', { id: toastId }); setEditing(false); onUpdate()
       } else { toast.error('Save failed', { id: toastId }) }
     } catch { toast.error('Error', { id: toastId }) }
@@ -82,7 +82,7 @@ export default function InquiryModal({ inquiryId, onClose, onUpdate }: Props) {
       method: 'PATCH', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status: nextStatus }),
     })
-    if (res.ok) { const d = await res.json(); setInquiry(d); onUpdate(); toast.success('Moved to Production!') }
+    if (res.ok) { const d: any = await res.json(); setInquiry(d); onUpdate(); toast.success('Moved to Production!') }
   }
 
   async function handleAddNote() {
