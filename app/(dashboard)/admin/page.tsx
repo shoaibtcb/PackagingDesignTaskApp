@@ -81,7 +81,7 @@ export default function AdminPage() {
         toast.success(editUser ? 'User updated!' : 'User created!', { id: toastId })
         setShowUserModal(false); fetchData()
       } else {
-        const err = await res.json(); toast.error(err.error || 'Failed', { id: toastId })
+        const err: any = await res.json(); toast.error(err.error || 'Failed', { id: toastId })
       }
     } catch { toast.error('Error', { id: toastId }) }
   }
@@ -111,7 +111,7 @@ export default function AdminPage() {
         res = await fetch('/api/groups', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(groupForm) })
       }
       if (res.ok) { toast.success('Saved!', { id: toastId }); setShowGroupModal(false); fetchData() }
-      else { const err = await res.json(); toast.error(err.error || 'Failed', { id: toastId }) }
+      else { const err: any = await res.json(); toast.error(err.error || 'Failed', { id: toastId }) }
     } catch { toast.error('Error', { id: toastId }) }
   }
 

@@ -52,7 +52,7 @@ export default function AddInquiryModal({ open, onClose, onAdded }: Props) {
         setForm({ company: '', agent: '', client: '', task: 'Digital Proof', priority: 'NORMAL', srcPath: '', designerId: '', product: '', finishedSize: '', quantity: '', material: '', printing: '', lamination: '', addOns: '', turnaroundTime: '', jobRef: '' })
         onAdded()
       } else {
-        const err = await res.json(); toast.error(err.error || 'Failed', { id: toastId })
+        const err: any = await res.json(); toast.error(err.error || 'Failed', { id: toastId })
       }
     } catch {
       toast.error('Network Error', { id: toastId })
