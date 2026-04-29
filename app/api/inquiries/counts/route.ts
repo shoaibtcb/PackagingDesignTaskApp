@@ -1,3 +1,4 @@
+export const runtime = 'edge';
 // app/api/inquiries/counts/route.ts
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'

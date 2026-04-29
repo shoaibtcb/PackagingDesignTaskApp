@@ -1,3 +1,4 @@
+export const runtime = 'edge';
 // app/api/download/bat/route.ts
 import { NextResponse } from 'next/server'
 

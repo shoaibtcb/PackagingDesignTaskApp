@@ -1,3 +1,4 @@
+export const runtime = 'edge';
 // app/api/groups/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
