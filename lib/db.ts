@@ -14,8 +14,8 @@ export function getPrisma() {
 
   // Production (Cloudflare Edge)
   const ctx = getRequestContext()
-  if (ctx?.env?.DB) {
-    const adapter = new PrismaD1(ctx.env.DB)
+  if ((ctx?.env as any)?.DB) {
+    const adapter = new PrismaD1((ctx.env as any).DB)
     return new PrismaClient({ adapter })
   }
 
