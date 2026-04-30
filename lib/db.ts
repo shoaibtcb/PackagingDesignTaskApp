@@ -22,4 +22,3 @@ export function getPrisma() {
   throw new Error('D1 Database binding not found. Please bind your D1 database to the variable "DB".')
 }
 
-export default getPrisma()
