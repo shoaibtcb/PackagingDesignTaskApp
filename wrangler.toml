@@ -6,4 +6,4 @@ pages_build_output_dir = ".vercel/output/static"
 [[d1_databases]]
 binding = "DB"
 database_name = "design-task-db"
-database_id = "cfa3573e-5730-4142-9164-aac5b9c59bc1"
+database_id = "5345bd4c-a921-4f44-91d4-87e46dda3b33"
