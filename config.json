@@ -1,0 +1,10 @@
+{
+  "supabase_url": "https://vozddjldekcnvadbcxbp.supabase.co",
+  "service_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZvemRkamxkZWtjbnZhZGJjeGJwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5NTAyNTY1OCwiZXhwIjoyMTEwNjAxNjU4fQ.gC15Rusqb1sUyyT5UGWHeSuy9lD3hzRW9rVFYT3ESvM",
+  "backend": "http://127.0.0.1:8633",
+  "ref_bucket": "h3-refs",
+  "image_bucket": "h3-images",
+  "interval_seconds": 8,
+  "stale_minutes": 20,
+  "timeout_seconds": 600
+}
